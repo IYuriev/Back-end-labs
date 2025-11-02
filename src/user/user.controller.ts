@@ -8,23 +8,23 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Post('user')
-  create(@Body() createUserDto: CreateUserDto): User {
+  async create(@Body() createUserDto: CreateUserDto): Promise<User> {
     return this.userService.create(createUserDto);
   }
 
   @Get('users')
-  findAll(): User[] {
+  async findAll(): Promise<User[]> {
     return this.userService.findAll();
   }
 
   @Get('user/:user_id')
-  findOne(@Param('user_id') id: string): User {
+  async findOne(@Param('user_id') id: string): Promise<User> {
     return this.userService.findOne(id);
   }
 
   @Delete('user/:user_id')
-  remove(@Param('user_id') id: string): { message: string } {
-    this.userService.remove(id);
+  async remove(@Param('user_id') id: string): Promise<{ message: string }> {
+    await this.userService.remove(id);
     return { message: `User with ID ${id} has been deleted` };
   }
 }

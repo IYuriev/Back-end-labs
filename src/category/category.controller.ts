@@ -8,18 +8,20 @@ export class CategoryController {
   constructor(private readonly categoryService: CategoryService) {}
 
   @Post()
-  create(@Body() createCategoryDto: CreateCategoryDto): Category {
+  async create(
+    @Body() createCategoryDto: CreateCategoryDto,
+  ): Promise<Category> {
     return this.categoryService.create(createCategoryDto);
   }
 
   @Get()
-  findAll(): Category[] {
+  async findAll(): Promise<Category[]> {
     return this.categoryService.findAll();
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string): { message: string } {
-    this.categoryService.remove(id);
+  async remove(@Param('id') id: string): Promise<{ message: string }> {
+    await this.categoryService.remove(id);
     return { message: `Category with ID ${id} has been deleted` };
   }
 }
