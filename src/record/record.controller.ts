@@ -16,26 +16,26 @@ export class RecordController {
   constructor(private readonly recordService: RecordService) {}
 
   @Post()
-  create(@Body() createRecordDto: CreateRecordDto): Record {
+  async create(@Body() createRecordDto: CreateRecordDto): Promise<Record> {
     return this.recordService.create(createRecordDto);
   }
 
   @Get()
-  findAll(
+  async findAll(
     @Query('user_id') userId?: string,
     @Query('category_id') categoryId?: string,
-  ): Record[] {
+  ): Promise<Record[]> {
     return this.recordService.findAll(userId, categoryId);
   }
 
   @Get(':record_id')
-  findOne(@Param('record_id') id: string): Record {
+  async findOne(@Param('record_id') id: string): Promise<Record> {
     return this.recordService.findOne(id);
   }
 
   @Delete(':record_id')
-  remove(@Param('record_id') id: string): { message: string } {
-    this.recordService.remove(id);
+  async remove(@Param('record_id') id: string): Promise<{ message: string }> {
+    await this.recordService.remove(id);
     return { message: `Record with ID ${id} has been deleted` };
   }
 }

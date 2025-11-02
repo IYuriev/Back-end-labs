@@ -1,21 +1,40 @@
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+  UpdateDateColumn,
+  ManyToOne,
+  JoinColumn,
+} from 'typeorm';
+import { User } from '../user/user.entity';
+import { Category } from '../category/category.entity';
+
+@Entity('records')
 export class Record {
+  @PrimaryGeneratedColumn('uuid')
   id: string;
+
+  @Column({ type: 'uuid', name: 'user_id' })
   userId: string;
+
+  @ManyToOne(() => User)
+  @JoinColumn({ name: 'user_id' })
+  user: User;
+
+  @Column({ type: 'uuid', name: 'category_id' })
   categoryId: string;
-  createdAt: Date;
+
+  @ManyToOne(() => Category, (category) => category.records)
+  @JoinColumn({ name: 'category_id' })
+  category: Category;
+
+  @Column({ type: 'decimal', precision: 10, scale: 2 })
   amount: number;
 
-  constructor(
-    id: string,
-    userId: string,
-    categoryId: string,
-    createdAt: Date,
-    amount: number,
-  ) {
-    this.id = id;
-    this.userId = userId;
-    this.categoryId = categoryId;
-    this.createdAt = createdAt;
-    this.amount = amount;
-  }
+  @CreateDateColumn({ name: 'created_at' })
+  createdAt: Date;
+
+  @UpdateDateColumn({ name: 'updated_at' })
+  updatedAt: Date;
 }
