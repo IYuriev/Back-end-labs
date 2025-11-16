@@ -6,12 +6,15 @@ import {
   Param,
   Body,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import { RecordService } from './record.service';
 import { CreateRecordDto } from './dto/create-record.dto';
 import { Record } from './record.entity';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 
 @Controller('record')
+@UseGuards(JwtAuthGuard)
 export class RecordController {
   constructor(private readonly recordService: RecordService) {}
 
