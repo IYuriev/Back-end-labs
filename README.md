@@ -39,6 +39,7 @@ DB_USERNAME=postgres
 DB_PASSWORD=postgres
 DB_DATABASE=finance_db
 PORT=3000
+JWT_SECRET_KEY=your-secret-key-here
 ```
 
 5. Start the database
@@ -63,7 +64,13 @@ npm run migration:run
 npm run start:dev
 ```
 
-8. Access the healthcheck endpoint: http://localhost:3000/healthcheck
+8. Run the migration to add username and password fields:
+
+```bash
+npm run migration:run
+```
+
+9. Access the healthcheck endpoint: http://localhost:3000/healthcheck
 
 ##### Response example:
 
