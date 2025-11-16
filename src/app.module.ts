@@ -6,6 +6,7 @@ import { UserModule } from './user/user.module';
 import { CategoryModule } from './category/category.module';
 import { RecordModule } from './record/record.module';
 import { AccountModule } from './account/account.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { AccountModule } from './account/account.module';
     RecordModule,
     AccountModule,
     HealthcheckModule,
+    AuthModule,
   ],
 })
 export class AppModule {}
